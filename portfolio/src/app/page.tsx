@@ -1,13 +1,6 @@
-import FirstComp from "./components/FirstComp";
-import SecondComp from "./components/SecondComp";
+import Container from "./components/Container";
 
 const Home = () => {
-  return (
-    <div>
-      <div className="fixed top-0 px-4 text-[3rem] font-bold">LDC</div>
-      <FirstComp />
-      <SecondComp />
-    </div>
-  );
+  return <Container />;
 };
 export default Home;

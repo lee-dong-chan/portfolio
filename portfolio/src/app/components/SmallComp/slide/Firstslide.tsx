@@ -1,514 +1,65 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { motion } from "framer-motion";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import Card from "./Card/FirstCard";
+import Link from "next/link";
 
 interface IProps {
-  plus: boolean;
-  setplus: Dispatch<SetStateAction<boolean>>;
   page: number;
   setpage: Dispatch<SetStateAction<number>>;
 }
 
-const FirstSlide = ({ plus, setplus, page, setpage }: IProps) => {
+const FirstSlide = ({ page, setpage }: IProps) => {
+  const [plusAnime, setplusAnime] = useState<boolean>(false);
+  const [minussAnime, setminusAnime] = useState<boolean>(false);
+  console.log(page);
+  const minusspage = () => {
+    if (page > 1 && !minussAnime) {
+      setminusAnime(true);
+      setpage(page - 1);
+      setTimeout(() => {
+        setminusAnime(false);
+      }, 1000);
+    } else if (page <= 1) {
+      setpage(5);
+    }
+  };
+  const pluspage = () => {
+    if (page < 5 && !plusAnime) {
+      setplusAnime(true);
+      setpage(page + 1);
+      setTimeout(() => {
+        setplusAnime(false);
+      }, 1000);
+    } else if (page >= 5) {
+      setpage(1);
+    }
+  };
+
   return (
     <div className="relative top-[20rem] gap-5 h-fit flex items-center">
-      <div
-        className="absolute left-[-4rem]"
-        onClick={() => {
-          setplus(!plus);
-          if (page < 5) {
-            setpage(page + 1);
-          }
-        }}
-      >
+      <div className="absolute left-[-40rem] z-[100]" onClick={minusspage}>
         <IoIosArrowBack size={60} color="black" />
       </div>
-      {!plus && (
-        <div>
-          <div className="absolute left-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                translateX: "-10rem",
-                translateY: "8rem",
-              }}
-              animate={{
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute top-[-5rem] left-[-24rem] z-[-50] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 0,
-                translateX: "15rem",
-                translateY: "4rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="relative">
-            <motion.div
-              initial={{
-                translateY: "-10rem",
-                translateX: "10rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "0rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[25rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute top-[0rem] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 1,
-                translateY: "0rem",
-                translateX: "0rem",
-              }}
-              animate={{
-                opacity: 0,
-                translateX: "-23em",
-                translateY: "-5rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 1,
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              animate={{
-                opacity: 0,
-                translateX: "10rem",
-                translateY: "10rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-24rem]  top-[-5rem] z-[-50] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 0,
-                translateX: "-12rem",
-                translateY: "-10rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "-2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute left-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 1,
-                translateX: "4rem",
-                translateY: "0rem",
-              }}
-              animate={{
-                opacity: 0,
-                translateX: "26rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 0,
-                translateX: "-20rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1.1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      )}
-      {plus && (
-        <div>
-          <div className="absolute left-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                translateX: "-10rem",
-                translateY: "8rem",
-              }}
-              animate={{
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute top-[-5rem] left-[-24rem] z-[-50] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 0,
-                translateX: "15rem",
-                translateY: "4rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="relative">
-            <motion.div
-              initial={{
-                translateY: "-10rem",
-                translateX: "10rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "0rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[25rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute top-[0rem] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 1,
-                translateY: "0rem",
-                translateX: "0rem",
-              }}
-              animate={{
-                opacity: 0,
-                translateX: "-23em",
-                translateY: "-5rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 1,
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              animate={{
-                opacity: 0,
-                translateX: "10rem",
-                translateY: "10rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-24rem]  top-[-5rem] z-[-50] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 0,
-                translateX: "-12rem",
-                translateY: "-10rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "-2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute left-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 1,
-                translateX: "4rem",
-                translateY: "0rem",
-              }}
-              animate={{
-                opacity: 0,
-                translateX: "26rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                opacity: 0,
-                translateX: "-20rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1.1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      )}
 
-      {/* {minus && (
-        <div>
-          <div className="absolute left-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                translateX: "10rem",
-              }}
-              animate={{
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute top-[-5rem] left-[-24rem] z-[-50] blur-sm">
-            <motion.div
-              initial={{
-                translateX: "10rem",
-                translateY: "-4rem",
-              }}
-              animate={{
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div>
-            <motion.div
-              initial={{
-                opacity: 0.8,
-                translateX: "-10rem",
-                translateY: "-4rem",
-              }}
-              animate={{
-                opacity: 1,
-                translateX: "0rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[25rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-24rem]  top-[-5rem] z-[-50] blur-sm">
-            <motion.div
-              initial={{
-                translateX: "-10rem",
-                translateY: "5rem",
-              }}
-              animate={{
-                translateX: "-2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <div className="absolute right-[-10rem]  top-[-15rem] z-[-70] blur-sm">
-            <motion.div
-              initial={{
-                translateX: "10rem",
-                translateY: "5rem",
-              }}
-              animate={{
-                translateX: "2rem",
-                translateY: "0rem",
-              }}
-              transition={{ duration: 1 }}
-            >
-              <div className="w-[20rem] h-[30rem] rounded-[1rem] bg-gray-200 overflow-hidden">
-                <div className="px-2 w-[100%] h-[2.5rem] flex items-center gap-2 bg-stone-800">
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
-                  <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-green-500"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      )} */}
+      <div>
+        <Link href={`/portfolio/4`}>
+          <Card page={page} card={4} />
+        </Link>
+        <Link href={`/portfolio/5`}>
+          <Card page={page} card={5} />
+        </Link>
+        <Link href={`/portfolio/1`}>
+          <Card page={page} card={1} />
+        </Link>
+        <Link href={`/portfolio/2`}>
+          <Card page={page} card={2} />
+        </Link>
+        <Link href={`/portfolio/3`}>
+          <Card page={page} card={3} />
+        </Link>
+      </div>
 
-      <div
-        className="absolute right-[-4rem]"
-        onClick={() => {
-          setplus(true);
-        }}
-      >
+      <div className="absolute right-[-40rem] z-[100]" onClick={pluspage}>
         <IoIosArrowForward size={60} color="black" />
       </div>
     </div>
