@@ -1,10 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
 import FirstSlide from "./SmallComp/Slide/Firstslide";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Observer } from "../lib/Observer";
-const SecondComp = () => {
+import { useBreakPoint } from "../lib/BreakPoint";
+interface IProps {
+  setscroll: Dispatch<SetStateAction<number>>;
+}
+const SecondComp = ({ setscroll }: IProps) => {
   const Secondref = useRef(null);
+  const { ismini, isdesktop } = useBreakPoint();
   const [view, setview] = useState<boolean>(false);
   const [page, setpage] = useState<number>(1);
   useEffect(() => {
@@ -13,6 +18,8 @@ const SecondComp = () => {
   useEffect(() => {
     if (!view) {
       setpage(1);
+    } else {
+      setscroll(2);
     }
   }, [view]);
   return (
@@ -21,7 +28,7 @@ const SecondComp = () => {
         {view ? (
           <motion.div
             initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1, scale: [ismini ? 0.8 : 1] }}
             transition={{ duration: 0.3 }}
           >
             <FirstSlide page={page} setpage={setpage} />

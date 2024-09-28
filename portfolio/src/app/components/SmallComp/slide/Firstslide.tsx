@@ -1,6 +1,6 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Dispatch, SetStateAction, useState } from "react";
-import Card from "./Card/FirstCard";
+import Card from "./Card/Card";
 import Link from "next/link";
 
 interface IProps {
@@ -11,7 +11,6 @@ interface IProps {
 const FirstSlide = ({ page, setpage }: IProps) => {
   const [plusAnime, setplusAnime] = useState<boolean>(false);
   const [minussAnime, setminusAnime] = useState<boolean>(false);
-  console.log(page);
   const minusspage = () => {
     if (page > 1 && !minussAnime) {
       setminusAnime(true);
@@ -37,9 +36,10 @@ const FirstSlide = ({ page, setpage }: IProps) => {
 
   return (
     <div className="relative top-[20rem] gap-5 h-fit flex items-center">
-      <div className="absolute left-[-40rem] z-[100]" onClick={minusspage}>
-        <IoIosArrowBack size={60} color="black" />
-      </div>
+      <div
+        className="absolute left-[-34rem] top-[-5rem] z-[100] w-[20rem] h-[30rem]"
+        onClick={pluspage}
+      ></div>
 
       <div>
         <Link href={`/portfolio/4`}>
@@ -59,9 +59,10 @@ const FirstSlide = ({ page, setpage }: IProps) => {
         </Link>
       </div>
 
-      <div className="absolute right-[-40rem] z-[100]" onClick={pluspage}>
-        <IoIosArrowForward size={60} color="black" />
-      </div>
+      <div
+        className="absolute right-[-34rem] top-[-5rem] z-[100] w-[20rem] h-[30rem]"
+        onClick={minusspage}
+      ></div>
     </div>
   );
 };
