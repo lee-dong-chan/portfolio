@@ -1,24 +1,32 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import FirstComp from "./FirstComp";
 import FourthComp from "./FourthComponent";
-import SecondComp from "./SecondComp";
+
 import ThirdComp from "./ThirdComp";
 import { debounce } from "lodash";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import SecondComp from "./SecondComp";
 
 const Container = () => {
   const [scroll, setscroll] = useState<number>(1);
   const [move, setmove] = useState<boolean>(false);
   const [title, settitle] = useState<boolean>(false);
+  const path = usePathname();
+
+  const scrollController = useCallback((e: WheelEvent) => {
+    e.preventDefault();
+  }, []);
+
   useEffect(() => {
-    window.addEventListener(
-      "wheel",
-      (e) => {
-        e.preventDefault();
-      },
-      { passive: false }
-    );
+    window.addEventListener("wheel", scrollController, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", scrollController);
+    };
+  }, []);
+
+  useEffect(() => {
     if (scroll == 1) {
       setmove(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,14 +52,15 @@ const Container = () => {
         setmove(false);
       }, 500);
     }
-  }, [scroll]);
+  }, [scroll, path]);
+
   useEffect(() => {
     if (!move) {
       setTimeout(() => {
         settitle(true);
       }, 3000);
     }
-  }, [move]);
+  }, []);
 
   return (
     <div
@@ -74,6 +83,7 @@ const Container = () => {
               <img
                 className="w-[100%] h-[100%]"
                 src={`${!title ? "/imgs/LDC3.gif" : "/imgs/title.png"}`}
+                alt="LDC"
               ></img>
             </div>
 
@@ -159,9 +169,9 @@ const Container = () => {
         </motion.div>
       )}
       <FirstComp setscroll={setscroll} />
-      <SecondComp setscroll={setscroll} />
-      <ThirdComp />
-      {scroll === 4 && <FourthComp />}
+      {scroll !== 1 && <SecondComp setscroll={setscroll} />}
+      {scroll !== 1 && <ThirdComp scroll={scroll} />}
+      {scroll !== 1 && scroll === 4 && <FourthComp />}
     </div>
   );
 };

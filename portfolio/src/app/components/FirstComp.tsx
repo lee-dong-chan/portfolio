@@ -3,12 +3,14 @@
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { Observer } from "../lib/Observer";
+import { useBreakPoint } from "../lib/BreakPoint";
 interface IProps {
   setscroll: Dispatch<SetStateAction<number>>;
 }
 
 const FirstComp = ({ setscroll }: IProps) => {
   const [view, setview] = useState<boolean>(false);
+  const { ismini } = useBreakPoint();
   const Firstref = useRef(null);
   useEffect(() => {
     Observer({ state: setview, ref: Firstref });
@@ -22,13 +24,15 @@ const FirstComp = ({ setscroll }: IProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, translateY: "1rem" }}
+      animate={{ opacity: 1, translateY: "1rem", scale: [ismini ? 0.8 : 1] }}
       transition={{ duration: 3 }}
       ref={Firstref}
     >
       <div className="w-[100%] h-screen flex items-center justify-center">
         {view ? (
-          <div className="w-[75rem] h-[40rem] bg-gray-300 rounded-[1rem] overflow-hidden">
+          <div
+            className={`w-[75rem] h-[40rem] bg-gray-300 rounded-[1rem] overflow-hidden`}
+          >
             <div className="ps-3 w-[100%] h-[3rem] flex items-center gap-3 bg-stone-800 ">
               <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-red-500"></div>
               <div className="h-[1rem] w-[1rem] rounded-[1rem] bg-gray-500"></div>
@@ -39,6 +43,7 @@ const FirstComp = ({ setscroll }: IProps) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 2 }}
+                className="flex items-center"
               >
                 <div className="my-auto h-[30rem] w-[30rem] rounded-[30rem] border overflow-hidden ">
                   <img src="/imgs/myimg.png" alt="myimg"></img>
@@ -62,7 +67,7 @@ const FirstComp = ({ setscroll }: IProps) => {
                 >
                   <div className="flex items-center">
                     <h1>Date:</h1>
-                    <p className="p-2 mt-1">96.06.28</p>
+                    <p className="p-2 mt-1">1996.06.28 (만 28세)</p>
                   </div>
                 </motion.div>
 
@@ -90,7 +95,7 @@ const FirstComp = ({ setscroll }: IProps) => {
                     <p className="p-2 mt-1 ">인덕대학교 기계자동차과 졸업</p>
                     <p className="p-2 mt-1">
                       경일it아카데미 AWS 클라우드 융합 웹 프레임워크 개발자
-                      양성과정A 수료
+                      <p> 양성과정A 수료</p>
                     </p>
                   </div>
                 </motion.div>
