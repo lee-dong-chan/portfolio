@@ -45,7 +45,7 @@ const PortFolioContent = ({ portfolio }: IProps) => {
               </div>
             ))}
           </div>
-          <div>프로젝트후 느낀점:{portfolio.review}</div>
+          <div>구현한 주요기능:{portfolio.Implementation.list}</div>
         </div>
       </div>
     </div>

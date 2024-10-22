@@ -1,7 +1,15 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { BiLogoTypescript } from "react-icons/bi";
-import { FaCss3Alt, FaFigma, FaHtml5, FaNodeJs, FaReact } from "react-icons/fa";
+import {
+  FaAws,
+  FaCss3Alt,
+  FaFigma,
+  FaGit,
+  FaHtml5,
+  FaNodeJs,
+  FaReact,
+} from "react-icons/fa";
 import { RiJavascriptFill, RiTailwindCssFill } from "react-icons/ri";
 import {
   SiExpress,
@@ -105,7 +113,7 @@ const ThirdComp = ({ scroll }: IProps) => {
   }, []);
 
   return (
-    <div className="pt-[10rem] px-2 w-[100%] h-screen">
+    <div className="pt-[10rem] px-2 w-[100%] h-screen flex items-center">
       {scroll === 3 && !modal && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -366,6 +374,44 @@ const ThirdComp = ({ scroll }: IProps) => {
                 className={`${hover === "figma" && "animate-bounce"}`}
               />
               <div className="w-fit mx-auto">Figma</div>
+            </div>
+            <div
+              className={`flex flex-col items-center w-[5rem]`}
+              onMouseOver={() => {
+                sethover("aws");
+              }}
+              onMouseOut={() => {
+                sethover("");
+              }}
+              onClick={() => {
+                setmodal(true);
+                setskillnum(13);
+              }}
+            >
+              <FaAws
+                size={100}
+                className={`${hover === "aws" && "animate-bounce"}`}
+              />
+              <div className="w-fit mx-auto">AWS</div>
+            </div>
+            <div
+              className={`flex flex-col items-center w-[5rem]`}
+              onMouseOver={() => {
+                sethover("git");
+              }}
+              onMouseOut={() => {
+                sethover("");
+              }}
+              onClick={() => {
+                setmodal(true);
+                setskillnum(13);
+              }}
+            >
+              <FaGit
+                size={100}
+                className={`${hover === "git" && "animate-bounce"}`}
+              />
+              <div className="w-fit mx-auto">Git</div>
             </div>
           </div>
         </motion.div>

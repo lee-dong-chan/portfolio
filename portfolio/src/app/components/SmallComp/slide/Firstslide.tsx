@@ -43,16 +43,16 @@ const FirstSlide = ({ page, setpage }: IProps) => {
 
       <div>
         <Link href={`/portfolio/4`}>
-          <Card page={page} card={4} />
+          <Card page={page} card={2} />
         </Link>
         <Link href={`/portfolio/5`}>
-          <Card page={page} card={5} />
-        </Link>
-        <Link href={`/portfolio/1`}>
           <Card page={page} card={1} />
         </Link>
+        <Link href={`/portfolio/1`}>
+          <Card page={page} card={5} />
+        </Link>
         <Link href={`/portfolio/2`}>
-          <Card page={page} card={2} />
+          <Card page={page} card={4} />
         </Link>
         <Link href={`/portfolio/3`}>
           <Card page={page} card={3} />
